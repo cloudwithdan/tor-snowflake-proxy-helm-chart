@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tor-snowflake-proxy.fullname" . }}
+  labels:
+    {{- include "tor-snowflake-proxy.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "tor-snowflake-proxy.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "tor-snowflake-proxy.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "tor-snowflake-proxy.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            {{- if .Values.snowflake.brokerURL }}
+            - "-broker"
+            - {{ .Values.snowflake.brokerURL | quote }}
+            {{- end }}
+            {{- if .Values.snowflake.relayURL }}
+            - "-relay"
+            - {{ .Values.snowflake.relayURL | quote }}
+            {{- end }}
+            {{- if .Values.snowflake.stunServers }}
+            - "-stun"
+            - {{ join "," .Values.snowflake.stunServers | quote }}
+            {{- end }}
+            {{- if .Values.snowflake.verbose }}
+            - "-verbose"
+            {{- end }}
+            {{- if .Values.snowflake.keepLocalAddresses }}
+            - "-keep-local-addresses"
+            {{- end }}
+            {{- if .Values.snowflake.unsafeLogging }}
+            - "-unsafe-logging"
+            {{- end }}
+            {{- if .Values.snowflake.capacity }}
+            - "-capacity"
+            - {{ .Values.snowflake.capacity | quote }}
+            {{- end }}
+            {{- if .Values.snowflake.summaryInterval }}
+            - "-summary-interval"
+            - "{{ .Values.snowflake.summaryInterval }}s"
+            {{- end }}
+            {{- range .Values.extraArgs }}
+            - {{ . | quote }}
+            {{- end }}
+          {{- with .Values.extraEnvVars }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
