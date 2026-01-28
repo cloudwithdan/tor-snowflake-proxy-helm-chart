@@ -1,0 +1,16 @@
+{
+    "release-type": "helm",
+    "packages": {
+        "charts/tor-snowflake-proxy": {
+            "package-name": "tor-snowflake-proxy",
+            "component": "tor-snowflake-proxy"
+        }
+    },
+    "extra-files": [
+        "charts/tor-snowflake-proxy/README.md",
+        "README.md"
+    ],
+    "include-v-in-tag": false,
+    "tag-separator": "-",
+    "pull-request-title-pattern": "chore${scope}: release${component}-${version}"
+}
