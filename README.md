@@ -1,7 +1,7 @@
 # Snowflake Proxy Helm Charts
 
-[![Lint and Test Charts](https://github.com/cloudwithdan/tor-snowflake-proxy-helm-chart/actions/workflows/ci.yml/badge.svg)](https://github.com/cloudwithdan/tor-snowflake-proxy-helm-chart/actions/workflows/ci.yml)
-[![Release Charts](https://github.com/cloudwithdan/tor-snowflake-proxy-helm-chart/actions/workflows/release-charts.yml/badge.svg)](https://github.com/cloudwithdan/tor-snowflake-proxy-helm-chart/actions/workflows/release-charts.yml)
+[![Lint and Test Charts](https://github.com/cloudwithdan/tor-snowflake-proxy-helm-chart/actions/workflows/lint.yaml/badge.svg)](https://github.com/cloudwithdan/tor-snowflake-proxy-helm-chart/actions/workflows/lint.yml)
+[![Release Charts](https://github.com/cloudwithdan/tor-snowflake-proxy-helm-chart/actions/workflows/release-please.yaml/badge.svg)](https://github.com/cloudwithdan/tor-snowflake-proxy-helm-chart/actions/workflows/release-please.yaml)
 
 Helm charts for deploying [Tor Snowflake Proxy](https://snowflake.torproject.org/) on Kubernetes.
 
