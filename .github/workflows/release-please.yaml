@@ -122,7 +122,7 @@ jobs:
           overwrite: true
           tag: ${{ env.TAG }}
 
-      - name: 📁 Upadate index
+      - name: Upadate index
         run: |
           owner=$(cut -d '/' -f 1 <<< "$GITHUB_REPOSITORY")
           repo=$(cut -d '/' -f 2 <<< "$GITHUB_REPOSITORY")
