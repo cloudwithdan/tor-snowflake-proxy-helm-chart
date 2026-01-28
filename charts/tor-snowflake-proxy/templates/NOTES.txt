@@ -1,0 +1,38 @@
+Snowflake Proxy has been deployed!
+
+Thank you for helping users bypass censorship by running a Snowflake proxy.
+
+1. Check the status of your deployment:
+
+   kubectl get pods -l "app.kubernetes.io/name={{ include "tor-snowflake-proxy.name" . }},app.kubernetes.io/instance={{ .Release.Name }}"
+
+2. View the logs to confirm connections:
+
+   kubectl logs -l "app.kubernetes.io/name={{ include "tor-snowflake-proxy.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" --tail=100
+
+3. You should see messages like:
+   - "connected to the Snowflake broker"
+   - "client successfully received"
+   - Traffic statistics every {{ .Values.snowflake.summaryInterval }} seconds
+
+Configuration:
+   - Replicas: {{ .Values.replicaCount }}
+   - Broker URL: {{ .Values.snowflake.brokerURL }}
+   - Verbose logging: {{ .Values.snowflake.verbose }}
+   {{- if .Values.snowflake.capacity }}
+   - Max capacity: {{ .Values.snowflake.capacity }} clients per pod
+   {{- else }}
+   - Max capacity: unlimited
+   {{- end }}
+
+Important Notes:
+   - Snowflake proxies use outbound connections only (no inbound Service needed)
+   - Ensure your cluster allows outbound UDP traffic for WebRTC
+   - Each pod can handle multiple concurrent clients
+   - Monitor network egress if your cloud provider charges for bandwidth
+
+Learn more:
+   - https://snowflake.torproject.org/
+   - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake
+
+Thank you for supporting internet freedom! 🌐
