@@ -3,7 +3,7 @@ name: tor-snowflake-proxy
 description: A Helm chart for running a Tor Snowflake proxy in Kubernetes
   cluster to help censored users connect to the Tor network.
 type: application
-version: 1.1.0
+version: 1.2.0
 appVersion: "v2.11.0"
 icon: https://styleguide.torproject.org/static/images/tor-browser/stable/stable.svg
 maintainers:
