@@ -1,3 +1,28 @@
 apiVersion: v1
-entries: {}
-generated: "2026-01-28T00:00:00Z"
+entries:
+  tor-snowflake-proxy:
+  - apiVersion: v2
+    appVersion: v2.11.0
+    created: "2026-02-02T14:44:11.299609637Z"
+    description: A Helm chart for running a Tor Snowflake proxy in Kubernetes cluster
+      to help censored users connect to the Tor network.
+    digest: 5e852df533cb08a6b4541fa85426f519812b1601693937f7b20409489224f95f
+    icon: https://styleguide.torproject.org/static/images/tor-browser/stable/stable.svg
+    keywords:
+    - tor
+    - snowflake
+    - proxy
+    - privacy
+    - censorship
+    maintainers:
+    - email: nikoloskid@pm.me
+      name: cloudwithdan
+    name: tor-snowflake-proxy
+    sources:
+    - https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake
+    - https://snowflake.torproject.org/
+    type: application
+    urls:
+    - https://github.com/cloudwithdan/tor-snowflake-proxy-helm-chart/releases/download/tor-snowflake-proxy-1.2.0/tor-snowflake-proxy-1.2.0.tgz
+    version: 1.2.0
+generated: "2026-02-02T14:44:11.29961635Z"
