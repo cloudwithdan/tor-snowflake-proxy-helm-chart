@@ -126,5 +126,11 @@ jobs:
         run: |
           owner=$(cut -d '/' -f 1 <<< "$GITHUB_REPOSITORY")
           repo=$(cut -d '/' -f 2 <<< "$GITHUB_REPOSITORY")
-          args=(-o "$owner" -r "$repo" --push -t "${{ secrets.CR_TOKEN }}" --index-path .)          
+
+          # Create docs directory and copy chart
+          mkdir -p docs
+          cp .cr-release-packages/*.tgz docs/ || true
+
+          # Generate index for GitHub Pages
+          args=(-o "$owner" -r "$repo" -c "https://cloudwithdan.github.io/tor-snowflake-proxy-helm-chart" --push -t "${{ secrets.CR_TOKEN }}" --index-path docs)
           .tmp/cr index "${args[@]}"
